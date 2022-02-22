@@ -73,6 +73,20 @@
 \DeclareMathOperator{\MSE}{MSE}
 
 
+
+
+
+% магия для автоматических гиперссылок задача-решение
+\newlist{myenum}{enumerate}{3}
+% \newcounter{problem}[chapter] % нумерация задач внутри глав
+\newcounter{problem}[section]
+
+
+% \setcounter{tocdepth}{1} % в оглавление оставляем уровень 1
+
+
+
+
 \author{Nick Averyanov, Sasha Plakhin}
 \title{Financial math problems solutions}
 
@@ -85,6 +99,17 @@
 
 \newpage
 \section{Binomial model}
+
+\section{Ito Integral}
+$h(\cdot) $ -is a harmonic function if:
+$$
+\sum_{i=1}^n \cfrac{\partial^2 h}{x_i^2} = 0.
+$$
+$h(\cdot) $ -is a subharmonic function if:
+$$
+\sum_{i=1}^n \cfrac{\partial^2 h}{x_i^2} \geq 0.
+$$
+Prove that for independent  Wiener processes $W_1, \ldots, W_n$ and a processes $X$ is defined by the formula: $X(t) = h(W_1(t), \ldots, W_n(t))$. Show that if $h$ is harmonic (subharmonic) $\Rightarrow$  $X$ is a martingale (submartingale).
 
 \section{Stochastic differential equations}
 
