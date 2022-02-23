@@ -48,13 +48,22 @@
 
 \renewcommand{\thesubsection}{\thesection.\alph{subsection}}
 
-\newenvironment{problem}[2][Задача]
-{ \begin{mdframed}[backgroundcolor=gray!20] \textbf{#1 #2} \\}
-	{ \end{mdframed}}
+\newtheoremstyle{problemstyle}  % <name>
+{3pt}                                               % <space above>
+{3pt}                                               % <space below>
+{\normalfont}                               % <body font>
+{}                                                  % <indent amount}
+{\bfseries\itshape}                 % <theorem head font>
+{\normalfont\bfseries:}         % <punctuation after theorem head>
+{.5em}                                          % <space after theorem head>
+{}                                                  % <theorem head spec (can be left empty, meaning `normal')>
+\theoremstyle{problemstyle}
+
+\newtheorem{problem}{Problem}[section]
 
 % Define solution environment
 \newenvironment{solution}
-{\textit{Решение:}}
+{\textit{Solution:}}
 {}
 \renewcommand{\qed}{\quad\qedsymbol}
 
@@ -79,7 +88,6 @@
 % магия для автоматических гиперссылок задача-решение
 \newlist{myenum}{enumerate}{3}
 % \newcounter{problem}[chapter] % нумерация задач внутри глав
-\newcounter{problem}[section]
 
 
 % \setcounter{tocdepth}{1} % в оглавление оставляем уровень 1
@@ -100,8 +108,9 @@
 \newpage
 \section{Binomial model}
 
-\section{Ito Integral}
-$h(\cdot) $ -- is a harmonic function if:
+\section{Itô's lemma}
+\begin{problem}
+$h(\cdot)$ -- is a harmonic function if:
 $$
 \sum_{i=1}^n \cfrac{\partial^2 h}{\partial x_i^2} = 0.
 $$
@@ -110,6 +119,28 @@ $$
 \sum_{i=1}^n \cfrac{\partial^2 h}{\partial x_i^2} \geq 0.
 $$
 Prove that for independent  Wiener processes $W_1, \ldots, W_n$ and a processes $X$ is defined by the formula: $X(t) = h(W_1(t), \ldots, W_n(t))$. Show that if $h$ is harmonic (subharmonic) $\Rightarrow$  $X$ is a martingale (submartingale).
+\end{problem}
+
+\begin{solution}
+	Applying multidimensional version of Ito's lemma to the function $h$ we can obtain:
+	$$
+	dX = \sum_{i=1}^n \cfrac{\partial h}{\partial x_i} dW_i + \cfrac{1}{2} \sum_{i=1}^n \cfrac{\partial^2 h}{\partial x_i^2} dt
+	$$
+	Equivalently, we can rewrite the equation as:
+	$$
+	h(W_1(t), \ldots, W_n(t)) ) = h(\boldsymbol{0}) + \int_0^t  \sum_{i=1}^n \cfrac{\partial h}{\partial x_i} dW_i + \int_0^t\cfrac{1}{2} \sum_{i=1}^n \cfrac{\partial^2 h}{\partial x_i^2} dt
+	$$
+	\begin{multline*}
+		\E[X(t)| \mathcal{F}_s] = h(\boldsymbol{0})  + \E\bigg[ \int_0^s  \sum_{i=1}^n \cfrac{\partial h}{\partial x_i} dW_i + \int_0^s\cfrac{1}{2} \sum_{i=1}^n \cfrac{\partial^2 h}{\partial x_i^2} dt + \int_s^t  \sum_{i=1}^n \cfrac{\partial h}{\partial x_i} dW_i + \int_s^t\cfrac{1}{2} \sum_{i=1}^n \cfrac{\partial^2 h}{\partial x_i^2} dt | \mathcal{F}_s \bigg ] =  \\
+		X(s) + \E \bigg[ \int_s^t  \sum_{i=1}^n \cfrac{\partial h}{\partial x_i} dW_i + \int_s^t\cfrac{1}{2} \sum_{i=1}^n \cfrac{\partial^2 h}{\partial x_i^2} dt | \mathcal{F}_s \bigg ] = X(s) + \E \bigg[ \int_s^t\cfrac{1}{2} \sum_{i=1}^n \cfrac{\partial^2 h}{\partial x_i^2} dt | \mathcal{F}_s \bigg ]
+	\end{multline*}
+	Looking at the last term we see that there is a sum of second order partial derivatives. If $h$ is harmonic we have $\E[X(t)|\mathcal{F}_s] = X(s)$ a.s. If  $h$ is subharmonic we have $\E[X(t)|\mathcal{F}_s] \geq X(s)$ a.s. And thus we have proven the statement.
+
+\end{solution}
+
+\section{Martingales}
+
+\section{Partial differential equations}
 
 \section{Stochastic differential equations}
 
