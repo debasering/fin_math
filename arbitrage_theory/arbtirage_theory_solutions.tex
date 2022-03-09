@@ -138,6 +138,25 @@ Prove that for independent  Wiener processes $W_1, \ldots, W_n$ and a processes 
 
 \end{solution}
 
+\begin{problem}
+	Show that $dW_1 dW_2 = 0 $ for two independent Brownian motions.
+\end{problem}
+Let $\Delta W_i(t_k)  = W_i(t_k) - W_i(t_{k-1})$.
+Define $Q_n$:
+$$
+Q_n = \sum_{k=1}^n  \Delta W_1(t_k) \Delta W_2(t_k),
+$$
+where $0 = t_0 < t_1 < \ldots <t_n = t$. Now we just have to show that $Q_n$ converges to $0$ in $L^2$ as the norm of the partiotion goes to $0$. We have:
+$$
+\E[Q_n] = \E \sum_{k=1}^n  \Delta W_1(t_k) \Delta W_2(t_k)  =  \sum_{k=1}^n  \E[ \Delta W_1(t_k) \Delta W_2(t_k)] = 0
+$$
+\begin{multline*}
+\E[Q_n^2] = \Var[Q_n]  = \Var\bigg[ \sum_{k=1}^n  \Delta W_1(t_k) \Delta W_2(t_k)  \bigg] = 
+ \sum_{k=1}^n \Var[\Delta W_1(t_k) \Delta W_2(t_k)] = \\
+ \sum_{k=1}^n  \E[\Delta W_1(t_k)^2 \Delta W_2(t_k)^2] = \sum_{k=1}^n  \E[\Delta W_1(t_k)^2] \E[\Delta W_2(t_k)^2]  = \\ \sum_{k=1}^n  (\Delta t_k)^2 \leq 
+ \max_k \{\Delta t_k \} \sum_{k=1}^n \Delta t_k =  \max_{k \in \{, \ldots n\}} \{\Delta t_k \} t \to 0, n \to \infty
+\end{multline*}
+
 \section{Martingales}
 
 \section{Partial differential equations}
