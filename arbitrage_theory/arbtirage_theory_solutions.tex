@@ -63,7 +63,7 @@
 
 % Define solution environment
 \newenvironment{solution}
-{\textit{Solution:}}
+{\textit{\textbf{Solution:}}}
 {}
 \renewcommand{\qed}{\quad\qedsymbol}
 
@@ -160,8 +160,118 @@ $$
 \section{Martingales}
 
 \section{Partial differential equations}
+\subsection{Probabilistic representation of the Cauchy problem solutions}
+
+\noindent In this subsection, we show some simple examples on the topic of probabilistic representation of the Cauchy problem solutions.
+
+\begin{problem}
+Use a stochastic representation result in order to solve the following boundary value problem in the domain [0, T ] × R:
+$$
+\frac{\partial F}{\partial t} + \mu x \frac{\partial F}{\partial x} + \frac{1}{2} \sigma^2 x^2 \frac{\partial^2 F}{\partial x^2 } = 0
+$$    
+$$
+F(T,x) = \ln(x^2) 
+$$
+
+Here $\mu$ and $\sigma$ are assumed to be known constants.
+
+\end{problem}
+
+\begin{solution}
+    Applying Feynman–Kac formula we have
+$$
+F(t,x) = \E[\ln X_T^2| X_t = x]
+$$
+
+where
+
+$$
+dX_s = \mu X_s ds + \sigma X_s dW_s
+$$
+$$
+X_t = x
+$$
+
+Applying Ito formula, we can investigate the process $Z_s = \ln X_s^2$
+$$
+d Z_s = \frac{2}{X_s}dX_s - \sigma^2 ds = \frac{2\mu X_s ds + 2 \sigma X_s dW_s}{X_s} - \sigma^2 ds = (2\mu - \sigma^2)ds + 2\sigma dW_s\\
+$$
+
+Thus we have the equation
+
+$$
+d \ln X^2_s = (2\mu - \sigma^2)ds + 2\sigma dW_s
+$$
+
+We can rewrite it in the following form
+
+$$
+\ln X_T^2= \ln X_t^2 + \int\limits_t^T (2\mu - \sigma^2) ds + \int\limits_{t}^{T}2\sigma dW_s = \ln X_t^2 + (2\mu - \sigma^2) (T-t) + 2\sigma (W_T - W_t)
+$$
+
+Thus we have the solution:
+
+$$
+F(t,x) = \E[\ln X_T^2| X_t = x] = \ln(x^2) + (2\mu - \sigma^2) (T-t)
+$$
+\end{solution}
+
+\begin{problem}
+Consider the following boundary value problem in the domain
+$[0,T] \times R$.
+
+$$ 
+\frac{\partial F}{\partial t} + \mu(t,x) \frac{\partial F}{\partial x} + \frac{1}{2}\sigma^2(t,x) \frac{\partial^2 F}{\partial x^2} + k(t,x) = 0
+$$
+$$
+F(T,x) = \Phi(x)
+$$
+
+Here $\mu, \sigma, k$ and $\Phi$ are assumed to be known functions.
+
+Prove that this problem has the stochastic representation formula.
+$$
+F(t, x) = \E[\Phi(X_T)| X_t = x] + \int\limits_t^T E[k(s, X_s)|X_t = x]ds
+$$
+
+where 
+$$
+dX_s = \mu(s, X_s) ds + \sigma(s, X_s) dW_s
+$$
+$$
+X_t = x
+$$
+\end{problem}
+
+\begin{solution}
+Considering the process $Z_s = F(s, X_s)$ and applying Ito formula, we have
+
+\begin{multline*}
+dZ_s = \frac{\partial F }{\partial s} (s, X_s) ds + \frac{\partial F }{\partial x} (s, X_s) dX_s + \frac{1}{2} \sigma^2(s, X_s) \frac{\partial^2 F}{\partial x^2} (s, X_s)ds = \\ =\underbrace{\Big( \frac{\partial F }{\partial s} (s, X_s) + \mu(s, X_s) \frac{\partial F }{\partial x} (s, X_s)  + \frac{1}{2} \sigma^2(s, X_s) \frac{\partial^2 F}{\partial x^2} (s, X_s)\Big)}_{= -k(s, X_s), \text{ assuming that $F$ actually solves PDE} }ds + \sigma(s, X_s)\frac{\partial F }{\partial x} (s, X_s) dW_S \\
+\end{multline*}
+
+We can rewrite this equation in the following form
+
+$$
+F(t, X_t) = F(T, X_T) + \int\limits_{t}^{T}k(s,X_s)ds - \int\limits_{t}^{T}\sigma(s, X_s)\frac{\partial F }{\partial x} (s, X_s) dW_S
+$$
+
+If the process $\sigma(s, X_s)\frac{\partial F }{\partial x} (s, X_s)$ is in $\mathcal{L}^2 $, taking expected values we have the proof(remember that intitial value $X_t = x$, $F(T,x) = \Phi(x)$ and expected value of Wiener integral is equal to zero)
+
+$$
+F(t,x) = \E[\Phi(X_T)|X_t = x] + \int\limits_{t}^{T} \E[k(s,X_s)|X_t = x]ds
+$$
+\end{solution}
+
+
+
 
 \section{Stochastic differential equations}
+
+
+
+
+
 
 \section{Black-Scholes}
 
@@ -169,6 +279,4 @@ $$
 
 
 \end{document}
-
-
 
