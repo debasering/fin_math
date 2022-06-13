@@ -298,8 +298,13 @@ Suppose that we have an underlying asset with price $S_t$. Its dynamics follows 
 $$
 dS_t = \mu S_tdt + \sigma S_t d\bar{W}_t
 $$
-We also have a riskless asset (bond) with the interest rate $r$. Some assumptions about the market are also necessary (inifinite liquidity etc). 
+We also have a riskless asset (bond) with the following dynamics ($r$ is the interest rate):
+$$
+dB_t = rB_tdt
+$$
 
+
+ Some assumptions about the market are also necessary (inifinite liquidity etc). 
 Suppose we now want to price some derivative with payment obligation $\mathcal{X} = \Phi(S_T)$ at time moment T. Then under risk-neutral measure $\mathbb{Q}$ we have no-arbitrage price:
 $$
 \Pi_t = F(t, S_t) = e^{-r(T-t)}\E^{\mathbb{Q}}_{t, s} [\Phi(S_T)]
@@ -327,7 +332,12 @@ $$
 		d\Pi_t = dF = \bigg(\frac{\partial F}{\partial t}  +  r \frac{\partial F}{\partial s} + \frac{1}{2} \sigma^2 \frac{\partial^2 F}{\partial s^2 }\bigg)dt + \sigma \frac{\partial F}{\partial s} dW_t = rF dt+ \sigma \frac{\partial F}{\partial s} dW_t  = r\Pi_t dt + g(t) dW_t
 		\end{multline}
 		
-		\item[b)] 
+		\item[b)] We are going to apply Itô's lemma to the function $e^{-rt}B_0^{-1}\Pi_t$:
+		\begin{multline}
+		d(e^{-rt}B_0^{-1}\Pi_t) = -re^{-rt}B_0^{-1}\Pi_t dt +e^{-rt}B_0^{-1}d\Pi_t = \\
+		 -re^{-rt}B_0^{-1}\Pi_t dt + e^{-rt}B_0^{-1}(r\Pi_t dt + g(t) dW_t) = 
+		 e^{-rt}B_0^{-1} \sigma \frac{\partial F}{\partial s} dW_t
+		\end{multline}
 	\end{solution}
 \end{problem}
 
