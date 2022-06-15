@@ -309,6 +309,18 @@ Suppose we now want to price some derivative with payment obligation $\mathcal{X
 $$
 \Pi_t = F(t, S_t) = e^{-r(T-t)}\E^{\mathbb{Q}}_{t, s} [\Phi(S_T)]
 $$
+
+For a price of a  european call option the formula is:
+\begin{eqnarray}
+F(t, s) &=& s \cdot N[d_1(t, s)] - e^{-r(T-t)}K \cdot N[d_2(t, s)] \\
+d_1(t, s) &=&  \cfrac{1}{\sigma\sqrt{T-t} }
+	\bigg( 
+	\log\bigg(\cfrac{s}{K}\bigg) + \bigg( r + \cfrac{1}{2} \sigma^2 \bigg)(T-t) 
+	\bigg) \\
+d_2(t, s) &=& d_1(t, s) - \sigma \sqrt{T-t} \\
+N(x) &=& \int_{-\infty}^{x} \cfrac{1}{\sqrt{2\pi}} e^{-t^2/2}dt
+\end{eqnarray}
+
 \begin{problem}
 	Consider basic Black-Scholes model with $T$-payment obligation $\mathcal{X} = \Phi(S_T)$. Let $\Pi_t$ be a no-arbitrage price.
 	\begin{enumerate}
@@ -366,6 +378,22 @@ $$
 	\end{solution}
 \end{problem}
 
+\begin{problem}
+	Price a european put-option (knowing the Black-Scholes formula for the call).
+	
+	\begin{solution}
+		We know that if we buy call (denote its price by $C$) and sell a put (denote its price by $P$) at time $T$, we get $\max\{S-K, 0\}$ for call and $-\max\{K-S, 0\}$  for put.  Formally:
+		\begin{equation}
+		C - P = \max\{S-K, 0\} - \max\{K-S, 0\} = S - K% \Rightarrow  C - P - S = -K
+		\end{equation}
+		For a more time moment $t < T$ we should also discount the strike price. Now let's rearrange the terms and get the formula:
+		\begin{multline}
+		P(t, s)  = C (t, s)- s+e^{-r(T-t)}K = 
+		 s \cdot N[d_1(t, s)] - e^{-r(T-t)}K \cdot N[d_2(t, s)]  - s + e^{-r(T-t)}K = \\
+		 = e^{-r(T-t)}K \cdot N[-d_2(t, s)]  - s \cdot N[-d_1(t, s)]
+		\end{multline}
+	\end{solution}
+\end{problem}
 
 
 
