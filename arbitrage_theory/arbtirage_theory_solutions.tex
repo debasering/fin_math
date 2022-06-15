@@ -338,6 +338,31 @@ $$
 		 -re^{-rt}B_0^{-1}\Pi_t dt + e^{-rt}B_0^{-1}(r\Pi_t dt + g(t) dW_t) = 
 		 e^{-rt}B_0^{-1} \sigma \frac{\partial F}{\partial s} dW_t
 		\end{multline}
+		This stochastic differntial contains zero drift component $\Rightarrow$ $\cfrac{\Pi_t}{B_t}$ is a martingale.
+	\end{solution}
+\end{problem}
+
+\begin{problem}
+	Consider a derivative with payoff $\Phi(S_T) = \log(S_T)$. Find its no-arbitragee price.
+	
+	\begin{solution}
+		For simplicity let us assume $S_0 \equiv 1$ (it does not affect the answer). In fact we only have to compute conditional expectation with respect to a risk-neutral measure $\mathbb{Q}$
+		\begin{multline}
+		\E^{\mathbb{Q}}_{t, s}[\log S_T] = 
+		\E^{\mathbb{Q}}\bigg[ 
+		\bigg(r  - \cfrac{\sigma^2}{2}\bigg)T + \sigma W_T \bigg| 
+		\bigg(r  - \cfrac{\sigma^2}{2}\bigg)t + \sigma W_t = \log(s)
+		\bigg] = \\
+		\bigg(r  - \cfrac{\sigma^2}{2}\bigg)T  +
+		\E^{\mathbb{Q}}\bigg[ \sigma W_T \bigg| 
+		\sigma W_t = \log(s) - \bigg(r  - \cfrac{\sigma^2}{2}\bigg)t 
+		\bigg] = 
+			\bigg(r  - \cfrac{\sigma^2}{2}\bigg)(T-t) +\log(s) 
+		\end{multline}
+		Here we used the fact that $\sigma W_t$ is a martingale. Then we can write down the price:
+		\begin{equation}
+		\Pi_t = e^{-r(T-t)}\E^{\mathbb{Q}}_{t, s}[\log S_T]  = e^{-r(T-t)}\bigg(\bigg(r  - \cfrac{\sigma^2}{2}\bigg)(T-t) +\log(s)\bigg) 
+		\end{equation}
 	\end{solution}
 \end{problem}
 
