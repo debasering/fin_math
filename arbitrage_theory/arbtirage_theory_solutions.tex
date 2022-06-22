@@ -379,7 +379,7 @@ N(x) &=& \int_{-\infty}^{x} \cfrac{1}{\sqrt{2\pi}} e^{-t^2/2}dt
 \end{problem}
 
 \begin{problem}
-	Price a european put-option (knowing the Black-Scholes formula for the call).
+		Price a european put-option (knowing the Black-Scholes formula for the call).
 	
 	\begin{solution}
 		We know that if we buy call (denote its price by $C$) and sell a put (denote its price by $P$) at time $T$, we get $\max\{S-K, 0\}$ for call and $-\max\{K-S, 0\}$  for put.  Formally:
@@ -393,6 +393,33 @@ N(x) &=& \int_{-\infty}^{x} \cfrac{1}{\sqrt{2\pi}} e^{-t^2/2}dt
 		 = e^{-r(T-t)}K \cdot N[-d_2(t, s)]  - s \cdot N[-d_1(t, s)]
 		\end{multline}
 	\end{solution}
+\end{problem}
+
+\begin{problem}
+	Dynamics of the stock price in dollars follows geometric Brownian motion:
+	\begin{equation}
+	dS_t = \mu S_t dt + \sigma S_t d\bar{W}^1_t.
+	\end{equation}
+	While the euro-dollar exchange rate also follows geometric Brownian motion:
+		\begin{equation}
+	dY_t = \beta Y_t dt + \delta Y_t d\bar{W}^2_t.
+	\end{equation}
+	Both Brownian motions are independent of each other. There is also a derivative which pays $\ln(Z_T^2)$ at time $T$, where $Z_t$ is a price of a stock in euro. A risk-free rate in euros is equal to $r$.  Find the arbitrage free price for the derivative. 
+	
+	\begin{solution}
+		In fact we can rewrite $Z_t$ as $Y_t \cdot S_t$. Le'ts now find $dZ_t$ using Ito's product rule:
+		\begin{multline}
+		dZ_t = d(Y_t \cdot S_t) = Y_t dS_t + S_t dY_t + dY_t dS_t =
+		 Y_t dS_t + S_t dY_t  = \\
+		 (\mu + \beta) Z_t dt + \sigma Z_t d\bar{W}^1_t + \delta Z_t d\bar{W}^2_t = (\mu + \beta) Z_t dt + \sqrt{\sigma^2 + \delta^2} Z_t d \tilde{W}_t
+		\end{multline}
+				Here $\tilde{W}_t$ is also a Brownian motion. Now we can use a result from one of the previous problems and get:
+		\begin{equation}
+		\Pi_t = e^{-r(T-t)}\E^{\mathbb{Q}}[Z_t] =
+			e^{-r(T-t)}\bigg(\bigg(r  - \cfrac{\sigma^2 + \delta^2}{2}\bigg)(T-t) +\log(z)\bigg) 
+		\end{equation}
+	\end{solution}
+	
 \end{problem}
 
 
