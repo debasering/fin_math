@@ -335,13 +335,13 @@ N(x) &=& \int_{-\infty}^{x} \cfrac{1}{\sqrt{2\pi}} e^{-t^2/2}dt
 	\begin{solution}
 		\item[a)] Under measure $\mathbb{Q}$ we know that $S_t$ is a geometric Brownian motion with drift $r$. We also know that $F$ is an actual solution for the equation:
 		$$
-		\frac{\partial F}{\partial t}  +  r \frac{\partial F}{\partial s} + \frac{1}{2} \sigma^2 \frac{\partial^2 F}{\partial s^2 }
+		\frac{\partial F}{\partial t}  +  rs \frac{\partial F}{\partial s} + \frac{1}{2} \sigma^2 s^2\frac{\partial^2 F}{\partial s^2 }
 		-r F = 0
 		\;\;\;\; F(T, s) = \Phi(s)
 		$$  
 		Using these facts and having $g(t) \equiv \sigma \cfrac{\partial F}{\partial s}$:
 		\begin{multline}
-		d\Pi_t = dF = \bigg(\frac{\partial F}{\partial t}  +  r \frac{\partial F}{\partial s} + \frac{1}{2} \sigma^2 \frac{\partial^2 F}{\partial s^2 }\bigg)dt + \sigma \frac{\partial F}{\partial s} dW_t = rF dt+ \sigma \frac{\partial F}{\partial s} dW_t  = r\Pi_t dt + g(t) dW_t
+		d\Pi_t = dF = \bigg(\frac{\partial F}{\partial t}  +  rs \frac{\partial F}{\partial s} + \frac{1}{2} \sigma^2s^2 \frac{\partial^2 F}{\partial s^2 }\bigg)dt + \sigma \frac{\partial F}{\partial s} dW_t = rF dt+ \sigma \frac{\partial F}{\partial s} dW_t  = r\Pi_t dt + g(t) dW_t
 		\end{multline}
 		
 		\item[b)] We are going to apply Itô's lemma to the function $e^{-rt}B_0^{-1}\Pi_t$:
