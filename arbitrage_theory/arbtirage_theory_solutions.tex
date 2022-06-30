@@ -161,10 +161,38 @@ $$
 \E[Q_n^2] = \Var[Q_n]  = \Var\bigg[ \sum_{k=1}^n  \Delta W_1(t_k) \Delta W_2(t_k)  \bigg] = 
  \sum_{k=1}^n \Var[\Delta W_1(t_k) \Delta W_2(t_k)] = \\
  \sum_{k=1}^n  \E[\Delta W_1(t_k)^2 \Delta W_2(t_k)^2] = \sum_{k=1}^n  \E[\Delta W_1(t_k)^2] \E[\Delta W_2(t_k)^2]  = \\ \sum_{k=1}^n  (\Delta t_k)^2 \leq 
- \max_k \{\Delta t_k \} \sum_{k=1}^n \Delta t_k =  \max_{k \in \{, \ldots n\}} \{\Delta t_k \} t \to 0, n \to \infty
+ \max_k \{\Delta t_k \} \sum_{k=1}^n \Delta t_k =  \max_{k \in \{1, \ldots n\}} \{\Delta t_k \}, \; t \to 0, n \to \infty
 \end{multline*}
 
 \section{Martingales}
+On a probability space $(\Omega, \mathcal{F}, \P)$ with filtration $\{\mathcal{F}_t\}_{t=1}^{\infty}$ a process $X_t$ is called a matrtingale iff:
+\begin{enumerate}
+	\item $X_t$ is $\{\mathcal{F}_t\}_{t=1}^{\infty}$ adapted;
+	\item $X_t \in L_1, \; \forall t$;
+	\item $\E[X_t | \mathcal{F}_s] = X_s, \forall t \geq s$.
+\end{enumerate}
+
+\begin{problem}
+	Let $Y$ is a random variable on a probability space $(\Omega, \mathcal{F}, \P)$ with filtration $\{\mathcal{F}_t\}_{t=1}^{\infty}$. Show that a process $X_t$ defined as:
+	\begin{equation}
+	X_t = \E[Y|\mathcal{F}_t]
+	\end{equation}
+	
+	\begin{solution}
+		For this problem we need to use the following property of a conditional expectation. Let  $\mathcal{F}_1$ and $\mathcal{F}_2$ be two sigma-algebras such that $\mathcal{F}_1 \subset \mathcal{F}_2$. Then the following property holds:
+		\begin{equation}
+		\E[\E[Z |\mathcal{F}_1] | \mathcal{F}_2] = 
+		\E[\E[Z |\mathcal{F}_2] | \mathcal{F}_1] = 
+		\E[Z|\mathcal{F}_1] 
+		\end{equation}
+		Let's apply this property to $X_t$ and prove that this process a martingale:
+		\begin{equation}
+		\E[X_t |\mathcal{F}_s] = 
+		\E[\E[Y|\mathcal{F}_t]| \mathcal{F}_s] = 
+		\E[Y|\mathcal{F}_s] = X_s
+		\end{equation}
+	\end{solution}
+\end{problem}
 
 \section{Partial differential equations}
 \subsection{Probabilistic representation of the Cauchy problem solutions}
@@ -422,7 +450,64 @@ N(x) &=& \int_{-\infty}^{x} \cfrac{1}{\sqrt{2\pi}} e^{-t^2/2}dt
 	
 \end{problem}
 
+\section{Duality and delta-hedging}
+Here the linearity of the price function is a useful fact:
+\begin{equation}
+\Pi(t; \alpha \Phi(S_T) + \beta \Psi(S_T))   =
+\alpha \Pi(t;\Phi(S_T)) +\beta \Pi(t;\Psi(S_T))
+\end{equation}
+For any continuous contract function we can find a portfolio consisting of bonds, stock and European call-options that can replicate it arbitrarily accurately. 
 
+By "Greeks" we understand the following set of the parameters ($V$ is value):
+\begin{eqnarray}
+\Delta = \cfrac{\partial V}{\partial S} \\
+\Gamma = \cfrac{\partial^2 V}{\partial S^2} \\
+\rho = \cfrac{\partial V}{\partial r} \\
+\Theta = \cfrac{\partial V}{\partial t} \\
+\mathcal{V} = \cfrac{\partial V}{\partial r} \\
+\end{eqnarray}
+These parameters measure sensitivity of the portfolio to changes of different parameters and values.
+
+\begin{problem}
+	Consider a Straddle contract:
+	\begin{equation}
+	\mathcal{X} = \begin{cases}
+	K - S_T, 0 < S_T \leq K, \\
+	S_T - K, S_T > K
+	\end{cases}
+	\end{equation}
+	
+	Replicate it and find arbitrage free price for it. 
+	
+	\begin{solution}
+	It is easy to see that this contract is simply equivalent to buying both call and put options. So in fact we have just to buy a call and a put in order to replicate it. From the put-call duality we can derive:
+	
+	\begin{equation}
+	\Pi = P + C = C + K e^{-r(T-t)} - S + C = 
+	2C + K e^{-r(T-t)} - S
+	\end{equation}
+	So we have to buy two calls with strike $K$, buy $K$ amount of bonds and sell a single stock. In order to find the price, we can substitute $C$ with the Black-Scholes formula for option price. 
+	\end{solution}
+\end{problem}
+
+\begin{problem}
+	Consider a bull spread contract:
+		\begin{equation}
+	\mathcal{X} = \begin{cases}
+	A, S_T < A, \\
+	S_T , A \leq S_T \leq B, \\
+	B, S_T > B
+	\end{cases}
+	\end{equation}
+	Replicate it and find arbitrage free price for it. 
+	
+	\begin{solution}
+		It is easy if we consider the case when $A=0$. Then buying a call with strike $0$ and selling a call with strike $0$ and selling a call with strike $B$ leads us to a correct formula. Now we have to buy $A$ amount of bonds. So the price for the bull spread is:
+		\begin{equation}
+		\Pi = C(t, S, A) - C(t, S, B) + Ae^{-r(T-t)} 
+		\end{equation}
+	\end{solution}
+	
+\end{problem}
 
 \end{document}
-
